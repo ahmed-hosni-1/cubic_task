@@ -1,0 +1,25 @@
+{
+  "auth": {
+    "registration": "Registration",
+    "name": "Name",
+    "hint_name": "Enter your name",
+    "email": "Email",
+    "hint_email": "Enter your email",
+    "phone": "Phone",
+    "hint_phone": "Enter your phone number",
+    "favorite": "Favorite",
+    "invalid_name": "Invalid name",
+    "invalid_email": "Invalid email",
+    "invalid_phone": "Invalid phone number",
+    "all_fields_required": "All fields are required",
+    "select_branch_error": "Please select a branch",
+    "select_branch": "Select Branch",
+    "register": "Register",
+    "success": "Success"
+  },
+  "map": {
+    "noLocation_services": "Location services are disabled",
+    "noLocation_permission": "Location permission is denied",
+    "enableLocation": "Enable Location"
+  }
+}

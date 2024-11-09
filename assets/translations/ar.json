@@ -1,0 +1,20 @@
+{
+  "auth": {
+    "registration": "التسجيل",
+    "name": "الاسم",
+    "hint_name": "أدخل اسمك",
+    "email": "البريد الإلكتروني",
+    "hint_email": "أدخل بريدك الإلكتروني",
+    "phone": "الهاتف",
+    "hint_phone": "أدخل رقم هاتفك",
+    "favorite": "المفضلة",
+    "select_branch": "اختر الفرع",
+    "invalid_name": "اسم غير صالح",
+    "invalid_email": "بريد إلكتروني غير صالح",
+    "invalid_phone": "رقم الهاتف غير صالح",
+    "all_fields_required": "جميع الحقول مطلوبة",
+    "select_branch_error": "الرجاء اختيار فرع",
+    "register": "تسجيل",
+    "success": "تم التسجيل بنجاح"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160750313684",
+    "project_id": "cubic-task",
+    "storage_bucket": "cubic-task.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160750313684:android:2156249e00cdc9afce1b41",
+        "android_client_info": {
+          "package_name": "com.example.cubic_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtKjuXq04TEodZwLq5s8dvKa9ZcdDnw2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
