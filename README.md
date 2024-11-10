@@ -19,7 +19,7 @@ This Flutter app implements a registration form and integrates with Google Maps 
 - A popup on the map pin shows the Estimated Time of Arrival (ETA), distance, and branch name.
 
 ### 4. **Social Media Login**:
-- Users can bypass the registration form and log in using social media accounts like Facebook, Google, or Apple.
+- Users can bypass the registration form and log in using social media accounts like  Google, or Apple.
 
 ### 5. **Form Submission Success**:
 - Upon successful form submission, a success message is displayed to the user.
