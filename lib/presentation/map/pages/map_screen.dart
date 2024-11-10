@@ -19,42 +19,38 @@ class MapScreen extends StatelessWidget {
     var branches =
         ModalRoute.of(context)!.settings.arguments as List<BranchEntities>;
     return BlocProvider(
-      create: (context) => getIt<MapCubit>()
-        ..getLocation()
-        ..calculateDistance(branches),
+      create: (context) => getIt<MapCubit>()..getLocation(),
       child: BlocConsumer<MapCubit, MapState>(
         listener: (context, state) {
+          print(state);
           var cubit = context.read<MapCubit>();
           if (state is GetLocationSuccess) {
             cubit.updateCurrentPosition(
                 latLng:
                     LatLng(state.position.latitude, state.position.longitude));
-            cubit.calculateDistance(branches).then(
-              (value) {
-                Future.delayed(const Duration(seconds: 1),() {
-                  Toastification().dismissAll();
-
-                  Toastification().show(
-                      autoCloseDuration: const Duration(seconds: 5),
-                      overlayState: Overlay.of(context),
-                      showProgressBar: false,
-                      backgroundColor: theme.primaryColor,
-                      alignment: Alignment.topCenter,
-                      context: context,
-                      type: ToastificationType.success,
-                      applyBlurEffect: false,
-                      closeButtonShowType: CloseButtonShowType.none,
-                      style: ToastificationStyle.simple,
-                      icon: const SizedBox(),
-                      padding: EdgeInsets.zero,
-                      dragToClose: true,
-                      showIcon: false,
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      title: NearestBrancheToast(theme: theme, cubit: cubit));
-                });
-
-              },
-            );
+            cubit.calculateDistance(branches, state.position);
+          }
+          if (state is CalculateDistanceSuccess) {
+            Future.delayed(const Duration(seconds: 1), () {
+              Toastification().dismissAll();
+              Toastification().show(
+                  autoCloseDuration: const Duration(seconds: 5),
+                  overlayState: Overlay.of(context),
+                  showProgressBar: false,
+                  backgroundColor: theme.primaryColor,
+                  alignment: Alignment.topCenter,
+                  context: context,
+                  type: ToastificationType.success,
+                  applyBlurEffect: false,
+                  closeButtonShowType: CloseButtonShowType.none,
+                  style: ToastificationStyle.simple,
+                  icon: const SizedBox(),
+                  padding: EdgeInsets.zero,
+                  dragToClose: true,
+                  showIcon: false,
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  title: NearestBranchToast(theme: theme, cubit: cubit));
+            });
           }
         },
         builder: (context, state) {

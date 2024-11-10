@@ -15,7 +15,11 @@
     "all_fields_required": "جميع الحقول مطلوبة",
     "select_branch_error": "الرجاء اختيار فرع",
     "register": "تسجيل",
-    "success": "تم التسجيل بنجاح"
+    "success": "تم التسجيل بنجاح",
+  "signInWithGoogleError": "حدث خطأ أثناء تسجيل الدخول باستخدام Google، يرجى المحاولة مرة أخرى",
+  "signInWithAppleError": "حدث خطأ أثناء تسجيل الدخول باستخدام Apple، يرجى المحاولة مرة أخرى"
+
+
   },
   "map": {
     "noLocation_services": "خدمات الموقع معطلة",
