@@ -1,4 +1,4 @@
-# Customer Registration App
+# Cubic Task
 
 This Flutter app implements a registration form and integrates with Google Maps to calculate the distance from the user's location to the nearest branch. It supports multiple languages (English and Arabic) and allows users to log in via social media accounts to bypass the registration form.
 
