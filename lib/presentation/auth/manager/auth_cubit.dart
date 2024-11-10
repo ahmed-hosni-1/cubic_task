@@ -37,7 +37,6 @@ class AuthCubit extends Cubit<AuthState> {
     switch (response) {
       case Success():
         {
-          response.data;
           branches = response.data;
           emit(GetBranchesStateSuccess(response.data));
           break;
@@ -47,6 +46,14 @@ class AuthCubit extends Cubit<AuthState> {
           emit(GetBranchesStateFailed(response.message));
         }
     }
+  }
+
+  void getBranchesFiltered() {
+    branchesFiltered.addAll(branches.where(
+          (element) {
+        return element.branchLat != null && element.branchLng != null;
+      },
+    ));
   }
 
   void register() async {

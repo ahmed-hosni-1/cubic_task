@@ -26,6 +26,10 @@ class RegistrationScreen extends StatelessWidget {
       create: (context) => authCubit..getBranches(),
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
+          var authCubit = context.read<AuthCubit>();
+          if (state is GetBranchesStateSuccess) {
+            authCubit.getBranchesFiltered();
+          }
           if (state is RegisterSuccessState) {
             Toastification().show(
               context: context,
@@ -180,10 +184,6 @@ class RegistrationScreen extends StatelessWidget {
                                 ),
                               ),
                               items: cubit.branches.map((e) {
-                                if (e.branchLat != null ||
-                                    e.branchLng != null) {
-                                  cubit.branchesFiltered.add(e);
-                                }
                                 return DropdownMenuItem(
                                   value: e,
                                   child: Row(

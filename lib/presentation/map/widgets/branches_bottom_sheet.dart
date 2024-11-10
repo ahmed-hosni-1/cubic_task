@@ -69,7 +69,7 @@ class BranchesBottomSheet extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: context.height * 0.14 + 16,
+                      height: context.height * 0.15 + 16,
                       width: context.width,
                       child: ListView.separated(
                         padding: const EdgeInsets.all(16),
@@ -86,7 +86,9 @@ class BranchesBottomSheet extends StatelessWidget {
                                   zoom: 13);
                             },
                             child: Stack(
-                              alignment: Alignment.topLeft,
+                              alignment: context.locale.languageCode == "en"
+                                  ? Alignment.topRight
+                                  : Alignment.topLeft,
                               children: [
                                 Container(
                                   width: context.width * 0.5,
@@ -128,11 +130,14 @@ class BranchesBottomSheet extends StatelessWidget {
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16),
+                                  margin: EdgeInsets.all(4),
                                   decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(16),
                                       topLeft: Radius.circular(16),
+                                      topRight: Radius.circular(16),
+                                      bottomLeft: Radius.circular(16),
                                     ),
                                   ),
                                   child: Text(

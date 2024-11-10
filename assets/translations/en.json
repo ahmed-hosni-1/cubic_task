@@ -15,7 +15,9 @@
     "select_branch_error": "Please select a branch",
     "select_branch": "Select Branch",
     "register": "Register",
-    "success": "Success"
+    "success": "Success",
+    "signInWithGoogleError": "Error signing in with Google , please try again",
+    "signInWithAppleError": "Error signing in with Apple , please try again"
   },
   "map": {
     "noLocation_services": "Location services are disabled",

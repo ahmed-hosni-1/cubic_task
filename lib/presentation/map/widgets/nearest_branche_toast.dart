@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/app_assets/icon_assets.dart';
 
-class NearestBrancheToast extends StatelessWidget {
-  const NearestBrancheToast({
+class NearestBranchToast extends StatelessWidget {
+  const NearestBranchToast({
     super.key,
     required this.theme,
     required this.cubit,
@@ -36,10 +36,11 @@ class NearestBrancheToast extends StatelessWidget {
             width: 16,
           ),
           SizedBox(
-            width: context.width * 0.7,
+            width: context.width * 0.6,
             child: Text(
-              "${"map.nearest_branch_desc".tr()} ${context.locale.languageCode == "en" ? cubit.nearestBranch!.branchName : cubit.nearestBranch?.branchNameAr ?? cubit.nearestBranch!.branchName}",
-              style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),
+              "${"map.nearest_branch_desc".tr()} ${context.locale.languageCode == "en" ? cubit.nearestBranch?.branchName : cubit.nearestBranch?.branchNameAr ?? cubit.nearestBranch?.branchName}",
+              maxLines: 2,
+              style: theme.textTheme.bodySmall!.copyWith(color: Colors.white),
             ),
           ),
         ],
