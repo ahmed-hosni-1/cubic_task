@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../../../core/utils/keys.dart';
 import 'auth_data_source.dart';
 
 @Injectable(as: AuthDataSource)
@@ -16,7 +17,7 @@ class AuthDataSourceImp implements AuthDataSource {
   AuthDataSourceImp(this.webService);
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(
-    clientId: '160750313684-mrmvifdje50k8uonmc9kb1avko7t8qsh.apps.googleusercontent.com',
+    clientId:AppKeys.instance.clientId,
   );
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -38,14 +39,17 @@ class AuthDataSourceImp implements AuthDataSource {
       idToken: appleCredential.identityToken,
       accessToken: appleCredential.authorizationCode,
     );
-    if(oauthCredential.accessToken == null || oauthCredential.idToken == null){
+    if (oauthCredential.accessToken == null ||
+        oauthCredential.idToken == null) {
       return null;
     }
 
     final userCredential =
         await _firebaseAuth.signInWithCredential(oauthCredential);
 
-    return userCredential.user == null || userCredential.user?.email == null ? null : userCredential;
+    return userCredential.user == null || userCredential.user?.email == null
+        ? null
+        : userCredential;
   }
 
   @override
@@ -64,9 +68,9 @@ class AuthDataSourceImp implements AuthDataSource {
     );
 
     final userCredential = await _firebaseAuth.signInWithCredential(credential);
-    if (userCredential.user == null || userCredential.user?.email == null) {
-      return null;
-    }
-    return userCredential;
+
+    return userCredential.user == null || userCredential.user?.email == null
+        ? null
+        : userCredential;
   }
 }

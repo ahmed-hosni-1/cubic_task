@@ -25,6 +25,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   BranchEntities? selectedBranch;
   List<BranchEntities> branches = [];
+  Set<BranchEntities> branchesFiltered = {};
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -49,21 +50,20 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void register() async {
-    emit(RegisterSuccessState());
-
-    // if (!formKey.currentState!.validate()) {
-    //   emit(RegisterFailedState("auth.all_fields_required".tr()));
-    //
-    // }else if(selectedBranch == null){
-    //   emit(RegisterFailedState( 'auth.select_branch_error'.tr()));
-    //
-    // }else{
-    //   emit(RegisterSuccessState());
-    //
-    // }
+    if (!formKey.currentState!.validate()) {
+      emit(RegisterFailedState("auth.all_fields_required".tr()));
+    } else if (selectedBranch == null) {
+      emit(RegisterFailedState('auth.select_branch_error'.tr()));
+    } else {
+      emit(RegisterSuccessState());
+    }
   }
 
   Future<void> signInWithGoogle() async {
+    if (selectedBranch == null) {
+      emit(AuthWithGoogleFailedState('auth.select_branch_error'.tr()));
+      return;
+    }
     emit(AuthWithGoogleLoadingState());
     ApiResponse<UserCredential> response =
         await _signInWithGoogleUseCase.call();
@@ -71,21 +71,24 @@ class AuthCubit extends Cubit<AuthState> {
       case Success():
         {
           response.data;
-            emit(RegisterSuccessState());
+          emit(RegisterSuccessState());
           break;
         }
       case Error():
         {
-          print(response.message);
+          debugPrint(response.message);
           emit(AuthWithGoogleFailedState(response.message));
         }
     }
   }
 
   Future<void> signInWithApple() async {
+    if (selectedBranch == null) {
+      emit(AuthWithAppleFailedState('auth.select_branch_error'.tr()));
+      return;
+    }
     emit(AuthWithAppleLoadingState());
-    ApiResponse<UserCredential> response =
-        await _signInWithAppleUseCase.call();
+    ApiResponse<UserCredential> response = await _signInWithAppleUseCase.call();
     switch (response) {
       case Success():
         {

@@ -27,7 +27,7 @@ Flutter/flutter_export_environment.sh
 ServiceDefinitions.json
 Runner/GeneratedPluginRegistrant.*
 # Ignore config file with API keys
-ios/keys.xcconfig
+keys.xcconfig
 
 # Exceptions to above rules.
 !default.mode1v3

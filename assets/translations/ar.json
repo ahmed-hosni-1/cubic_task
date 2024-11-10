@@ -16,5 +16,15 @@
     "select_branch_error": "الرجاء اختيار فرع",
     "register": "تسجيل",
     "success": "تم التسجيل بنجاح"
+  },
+  "map": {
+    "noLocation_services": "خدمات الموقع معطلة",
+    "noLocation_permission": "إذن الموقع مرفوض",
+    "enableLocation": "تفعيل الموقع",
+    "nearest_branch_desc": "أقرب فرع إلى موقعك هو",
+    "nearest_branch": "أقرب فرع",
+    "branch": "فرع",
+    "nearest": "الاقرب",
+    "available": "متاح"
   }
 }

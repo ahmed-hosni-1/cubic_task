@@ -1,7 +1,8 @@
 part of 'auth_cubit.dart';
 @immutable
- class AuthState {
-
+ sealed class AuthState {
+  String? message;
+  AuthState([this.message]);
   // ApiState googleSignIn;
   // ApiState
 }
@@ -21,8 +22,7 @@ final class GetBranchesStateFailed extends AuthState {
 
 final class SelectBranchState extends AuthState {}
 final class RegisterFailedState extends AuthState {
-  final String message;
-  RegisterFailedState(this.message);
+  RegisterFailedState(super.message);
 }
 final class RegisterSuccessState extends AuthState {}
 final class AuthWithGoogleLoadingState extends AuthState {}
@@ -31,15 +31,13 @@ final class AuthWithGoogleSuccessState extends AuthState {
   AuthWithGoogleSuccessState(this.userCredential);
 }
 final class AuthWithGoogleFailedState extends AuthState {
-  final String message;
-  AuthWithGoogleFailedState(this.message);
+  AuthWithGoogleFailedState(super.message);
 }final class AuthWithAppleLoadingState extends AuthState {}
 final class AuthWithAppleSuccessState extends AuthState {
   final UserCredential userCredential;
   AuthWithAppleSuccessState(this.userCredential);
 }
 final class AuthWithAppleFailedState extends AuthState {
-  final String message;
-  AuthWithAppleFailedState(this.message);
+  AuthWithAppleFailedState(super.message);
 }
 
