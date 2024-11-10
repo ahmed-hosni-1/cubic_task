@@ -37,9 +37,12 @@ class RegistrationScreen extends StatelessWidget {
               title:
                   Text("auth.success".tr(), style: theme.textTheme.bodyMedium),
             );
-            Navigator.pushReplacementNamed(context, PageRoutesName.mapScreen,arguments: authCubit.branches);
+            Navigator.pushReplacementNamed(context, PageRoutesName.mapScreen,
+                arguments: authCubit.branchesFiltered.toList());
           }
-          if (state is RegisterFailedState) {
+          if (state is RegisterFailedState ||
+              state is AuthWithAppleFailedState ||
+              state is AuthWithGoogleFailedState) {
             Toastification().show(
               context: context,
               type: ToastificationType.error,
@@ -47,7 +50,8 @@ class RegistrationScreen extends StatelessWidget {
               alignment: Alignment.topCenter,
               backgroundColor: theme.scaffoldBackgroundColor,
               autoCloseDuration: const Duration(seconds: 2),
-              title: Text(state.message, style: theme.textTheme.bodyMedium),
+              title:
+                  Text(state.message ?? "", style: theme.textTheme.bodyMedium),
             );
           }
         },
@@ -175,26 +179,31 @@ class RegistrationScreen extends StatelessWidget {
                                   color: Colors.black54,
                                 ),
                               ),
-                              items: cubit.branches
-                                  .map((e) => DropdownMenuItem(
-                                        value: e,
-                                        child: Row(
-                                          children: [
-                                            Text(e.branchName),
-                                            const Spacer(),
-                                            /// to indicate that the branch has location
-                                            /// to enhance the user experience by making
-                                            /// for users to know that the branch has location
-                                            if (e.branchLat != null &&
-                                                e.branchLng != null)
-                                              Icon(
-                                                Icons.location_on_rounded,
-                                                color: theme.primaryColor,
-                                              )
-                                          ],
-                                        ),
-                                      ))
-                                  .toList(),
+                              items: cubit.branches.map((e) {
+                                if (e.branchLat != null ||
+                                    e.branchLng != null) {
+                                  cubit.branchesFiltered.add(e);
+                                }
+                                return DropdownMenuItem(
+                                  value: e,
+                                  child: Row(
+                                    children: [
+                                      Text(e.branchName),
+                                      const Spacer(),
+
+                                      /// to indicate that the branch has location
+                                      /// to enhance the user experience by making
+                                      /// for users to know that the branch has location
+                                      if (e.branchLat != null &&
+                                          e.branchLng != null)
+                                        Icon(
+                                          Icons.location_on_rounded,
+                                          color: theme.primaryColor,
+                                        )
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
                               onChanged: (value) {
                                 cubit.selectBranch(value as BranchEntities);
                               },
@@ -246,32 +255,31 @@ class RegistrationScreen extends StatelessWidget {
                         height: 12,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              cubit.signInWithApple();
-                            },
-                            child: SvgPicture.asset(
-                              SvgAssets.instance.apple,
-                              width: 50,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                cubit.signInWithApple();
+                              },
+                              child: SvgPicture.asset(
+                                SvgAssets.instance.apple,
+                                width: 50,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              cubit.signInWithGoogle();
-                            },
-                            child: SvgPicture.asset(
-                              SvgAssets.instance.google,
-                              width: 44,
+                            const SizedBox(
+                              width: 30,
                             ),
-                          ),
-                        ]
-                      ),
-                     const SizedBox(
+                            GestureDetector(
+                              onTap: () {
+                                cubit.signInWithGoogle();
+                              },
+                              child: SvgPicture.asset(
+                                SvgAssets.instance.google,
+                                width: 44,
+                              ),
+                            ),
+                          ]),
+                      const SizedBox(
                         height: 18,
                       ),
                       const ChangeLanguageWidget()

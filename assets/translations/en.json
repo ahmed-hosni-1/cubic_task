@@ -20,6 +20,11 @@
   "map": {
     "noLocation_services": "Location services are disabled",
     "noLocation_permission": "Location permission is denied",
-    "enableLocation": "Enable Location"
+    "enableLocation": "Enable Location",
+    "nearest_branch_desc": "The Nearest Branch To Your Location is",
+    "nearest_branch": "Nearest Branch",
+    "branch": "Branch",
+    "nearest": "Nearest",
+    "available": "Available"
   }
 }

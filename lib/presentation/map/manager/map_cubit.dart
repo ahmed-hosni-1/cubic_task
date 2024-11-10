@@ -19,6 +19,8 @@ class MapCubit extends Cubit<MapState> {
 
   Position? position;
   Set<Marker> markers = {};
+  BranchEntities? nearestBranch;
+
   bool serviceEnabled = false;
   bool needLocationPermission = false;
 
@@ -47,7 +49,6 @@ class MapCubit extends Cubit<MapState> {
 
   Future<void> getLocation() async {
     if (isRequestInProgress) return;
-
     isRequestInProgress = true;
 
     try {
@@ -74,6 +75,11 @@ class MapCubit extends Cubit<MapState> {
     emit(UpdateCurrentPosition());
   }
 
+
+  void moveToMyLocation() async {
+    updateCurrentPosition(latLng: LatLng(position!.latitude, position!.longitude));
+  }
+
   Future<void> calculateDistance(List<BranchEntities> branches) async {
     if (position == null) {
       emit(CalculateDistanceFailed());
@@ -81,7 +87,6 @@ class MapCubit extends Cubit<MapState> {
     }
 
     double nearestDistance = double.infinity;
-    BranchEntities? nearestBranch;
 
     for (var branch in branches) {
       if (branch.branchLat != null && branch.branchLng != null) {
@@ -99,52 +104,29 @@ class MapCubit extends Cubit<MapState> {
           nearestDistance = distance;
           nearestBranch = branch;
         }
+        await _addMarkerForBranch(branch);
       }
     }
 
     if (nearestBranch != null) {
-      _addMarkerForBranch(nearestBranch);
-      emit(CalculateDistanceSuccess(nearestBranch));
+      emit(CalculateDistanceSuccess(nearestBranch!));
     } else {
       emit(CalculateDistanceFailed());
     }
   }
 
-  void _addMarkerForBranch(BranchEntities branch) async {
+  Future<void> _addMarkerForBranch(BranchEntities branch) async {
     var icon = await BitmapDescriptor.asset(
         const ImageConfiguration(
-          size: Size(45, 45),
+          size: Size(42, 60),
         ),
-        IconsAssets.instance.atmLocation);
+        IconsAssets.instance.locationMarker);
     markers.add(Marker(
       markerId: MarkerId(branch.branchId),
       icon: icon,
-      draggable: true,
       infoWindow: InfoWindow(
         title: branch.branchName,
-        snippet: branch.branchCode,
-        onTap: () {
-          showModalBottomSheet(
-              isScrollControlled: true,
-              isDismissible: true,
-              showDragHandle: true,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
-              ),
-              context: navigatorKey.currentContext!,
-              builder: (context) => SizedBox(
-                    height: 200,
-                    child: Column(
-                      children: [
-                        Text(branch.branchName),
-                        Text(branch.branchCode ?? ""),
-                        Text(branch.branchAddress ?? ""),
-                      ],
-                    ),
-                  ));
-        },
+        snippet: branch.branchCity ?? branch.branchAddress ?? branch.branchCode,
       ),
       position: LatLng(
           double.parse(branch.branchLat!), double.parse(branch.branchLng!)),

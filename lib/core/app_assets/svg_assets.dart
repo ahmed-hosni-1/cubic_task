@@ -10,5 +10,5 @@ class SvgAssets {
   String en = 'assets/icons/en.svg';
   String apple = 'assets/icons/apple.svg';
   String google = 'assets/icons/google.svg';
-
+  String locationMarker = 'assets/icons/location_marker_svg.svg';
 }
